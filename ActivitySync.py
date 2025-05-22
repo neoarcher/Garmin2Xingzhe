@@ -113,7 +113,7 @@ def syncData(username, password, garmin_email = None, garmin_password = None):
         #running 跑步
 
         item_name = dt2.strftime("%Y-%m-%d ") + time_period + " 骑行"
-        printf("运动记录名：" + item_name)
+        print("运动记录名：" + item_name)
         activity["item_name"] = item_name
         
         need_sync = True
