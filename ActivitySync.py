@@ -113,8 +113,8 @@ def syncData(username, password, garmin_email = None, garmin_password = None):
         #running 跑步
 
         item_name = dt2.strftime("%Y-%m-%d ") + time_period + " 骑行"
-        print("运动记录名：" + item_name)
-        activity["item_name"] = item_name
+        activity["itemName"] = item_name
+        print("运动记录名：" + activity["itemName"])
         
         need_sync = True
 
@@ -134,7 +134,7 @@ def syncData(username, password, garmin_email = None, garmin_password = None):
         upload_url = "https://www.imxingzhe.com/api/v1/fit/upload/"
         for sync_item in sync_data:
             if type == 2:  # garmin
-                rid     = sync_item['activityId']
+                rid = sync_item['activityId']
                 rid = str(rid)
                 print("sync rid:" + rid)
                 res = garth.download(
@@ -150,13 +150,14 @@ def syncData(username, password, garmin_email = None, garmin_password = None):
                         "file_source": (None, "undefined", None),
                         "fit_filename": (None, rid+"_ACTIVITY.fit", None),
                         "md5": (None, hashlib.md5(data).hexdigest(), None),
-                        "name": (None, sync_item["item_name"], None),
+                        "name": (None, sync_item['itemName'], None),
                         "sport": (None, 3, None),  # 骑行
                         "fit_file": (rid+"_ACTIVITY.fit", data, 'application/octet-stream')
                     })
+                print("同步运动记录：" + sync_item['itemName'])
             else:
-                rid     = sync_item["RideId"]
-                rid     = str(rid)
+                rid = sync_item["RideId"]
+                rid = str(rid)
                 print("sync rid:" + rid)
 
                 fit_url = "https://%s/fit/activity?type=0&rideid=%s" % (igp_host, rid)
